@@ -27,7 +27,7 @@
     "co": "*",
     "gulp": "*",
     "koa": "*"
-  }
+  },
   "dependencies": {
     "browserify": "^8.1.1",
     "regenerator": "^0.8.9",
