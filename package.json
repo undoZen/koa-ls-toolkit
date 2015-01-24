@@ -1,0 +1,36 @@
+{
+  "name": "koa-ls-toolkit",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/undoZen/koa-ls-toolkit.git"
+  },
+  "keywords": [
+    "koa",
+    "ls",
+    "gulp",
+    "browserify"
+  ],
+  "author": "undoZen <opensource@undozen.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/undoZen/koa-ls-toolkit/issues"
+  },
+  "homepage": "https://github.com/undoZen/koa-ls-toolkit",
+  "peerDependencies": {
+    "bluebird": "*",
+    "co": "*",
+    "gulp": "*",
+    "koa": "*"
+  }
+  "dependencies": {
+    "browserify": "^8.1.1",
+    "regenerator": "^0.8.9",
+    "watchify": "^2.2.1"
+  }
+}
