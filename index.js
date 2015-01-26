@@ -9,3 +9,5 @@ exports.register = {
         return this;
     }
 };
+
+exports.gulp = require('./gulp.js');
