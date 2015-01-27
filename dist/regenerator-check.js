@@ -1,13 +1,3 @@
-if (!(function () {
-  try {
-    eval('var gen = function *(){}');
-    return gen.constructor.name === 'GeneratorFunction';
-  } catch(e) {
-    return false;
-  }
-}())) {
-    document.write('<script src="/regenerator.js"><'+'/script>');
-}
 BCP._mergeModules = BCP.mergeModules;
 BCP.mergeModules = function(modules) {
     var key;
@@ -19,4 +9,14 @@ BCP.mergeModules = function(modules) {
         }
     }
     BCP._mergeModules.call(BCP, modules);
+}
+if (!(function() {
+        try {
+            eval('var gen = function *(){}');
+            return gen.constructor.name === 'GeneratorFunction';
+        } catch (e) {
+            return false;
+        }
+    }())) {
+    document.write('<script src="/regenerator.js"><' + '/script>');
 }

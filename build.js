@@ -6,20 +6,19 @@
 var fs = require('fs');
 var UglifyJS = require('uglify-js');
 var dir = process.argv[2] === 'test' ? './test' : './dist';
+var indexSrc = fs.readFileSync('./test/index.src.html', 'utf-8');
+var checker = fs.readFileSync('./regenerator-check.js', 'utf-8');
+var bcp = fs.readFileSync(require.resolve('browserify-common-prelude/dist/bcp.min.js'), 'utf-8');
 
 try {
     fs.mkdirSync(dir);
 } catch (e) {}
-var gd = require('generator-detector').toString();
-console.log(gd);
-var checker = fs.readFileSync('./regenerator-check.js', 'utf-8').replace("'{{supportGenerator}}'", gd+'()');
-console.log(checker);
-var min = UglifyJS.minify(checker, {fromString: true}).code;
-min = min.replace(/<\/script>/g, "<'+'/script>");
-/*
-if (min[0] === '!') {
-    min = '(' + min.substring(1) + ')'
-}
-*/
-fs.writeFileSync(dir+'/regenerator-check.js', checker, 'utf-8');
-fs.writeFileSync(dir+'/regenerator-check.min.js', min, 'utf-8');
+var min = UglifyJS.minify(checker, {
+    output: {
+        beautify: false,
+        inline_script: true
+    },
+    fromString: true
+}).code;
+var index = indexSrc.replace('(function BCP(){})', bcp).replace("'{{RC}}'", min);
+fs.writeFileSync('./test/index.html', index, 'utf-8');
