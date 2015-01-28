@@ -14,6 +14,9 @@ watchify.args.prelude = 'BCP.prelude';
 function exists(filePath)
     new Promise(fs.exists(filePath, _))
 
+function sleep(ms)
+    new Promise(setTimeout(_, ms))
+
 function firstExists(...files)
     return co ->*
         while files.length
@@ -46,23 +49,17 @@ module.exports = (gulp, app, listen) ->
         watchify(browserify(watchify.args)).on 'update', console.log.bind(console)
 
     gulp.task 'dev', ['watchify'], ->
-        regeneratorSource = require('fs').readFileSync(__dirname + '/test/regenerator.js');
+        regeneratorSource = require('fs').readFileSync(__dirname + '/test/regenerator.min.js');
         app.middleware.unshift (next) ->*
-            if (@path is '/regenerator.js')
-                @type = 'js'
-                @body = regeneratorSource
-                return
-
-            unless @path.match(/\.js$/)
-                return yield next
-
-            if (filePath = yield firstExists(getFilePath(@path), getFilePath(@path).replace(/\.js$/i, '.ls')))
+            if @path.match(/\.js$/) and (filePath = yield firstExists(
+                getFilePath(@path),
+                getFilePath(@path).replace(/\.js$/i, '.ls')
+            ))
                 @status = 200
                 @type = 'js'
                 @respond = false;
                 newB(filePath).bundle().pipe(@res)
-                return
-
-            yield next
+            else
+                yield next
 
         listen(app)
