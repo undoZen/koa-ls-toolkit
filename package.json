@@ -1,16 +1,16 @@
 {
   "name": "koa-ls-toolkit",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
-      "dist/regenerator.min.js",
-      "dist/regenerator.js",
-      "gulp.js",
-      "index.js"
+    "dist/regenerator.min.js",
+    "dist/regenerator.js",
+    "gulp.js",
+    "index.js"
   ],
   "repository": {
     "type": "git",
