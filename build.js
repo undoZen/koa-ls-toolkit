@@ -33,9 +33,9 @@ fs.writeFileSync('./gulp.js', ls.compile(fs.readFileSync('./gulp.ls', 'utf-8'), 
 
 console.log('bundling regenerator.js...');
 browserify('./regenerator.js', {
-        basedir: __dirname,
-        exposeAll: true
-    })
+    basedir: __dirname,
+    exposeAll: true
+})
     .bundle(function (err, browserified) {
         browserified = browserified.toString('utf-8');
         console.log('minifying regenerator.js...');
@@ -45,8 +45,6 @@ browserify('./regenerator.js', {
             },
             fromString: true
         }).code;
-        fs.writeFileSync('./test/regenerator.js', browserified, 'utf-8');
-        fs.writeFileSync('./test/regenerator.min.js', min, 'utf-8');
         fs.writeFileSync('./dist/regenerator.js', browserified, 'utf-8');
         fs.writeFileSync('./dist/regenerator.min.js', min, 'utf-8');
     });

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 require! path
 require! fs
 require! browserify
@@ -7,8 +7,8 @@ require! co
 Promise = require('bluebird')
 Transform = require('stream').Transform
 
-watchify.args.exposeAll = true;
-watchify.args.prelude = 'BCP.prelude';
+watchify.args.exposeAll = true
+watchify.args.prelude = 'BCP.prelude'
 
 function exists(filePath)
     new Promise(fs.exists(filePath, _))
@@ -35,7 +35,7 @@ module.exports = (gulp, app, listen) ->
             objectMode: true
 
         fr._transform = (row, enc, cb) ->
-            row.source = 'return ' + JSON.stringify(row.source);
+            row.source = 'return ' + JSON.stringify(row.source)
             cb(null, row)
 
         b.pipeline.get('pack').unshift(fr)
@@ -45,7 +45,7 @@ module.exports = (gulp, app, listen) ->
         watchify(browserify(watchify.args)).on 'update', console.log.bind(console)
 
     gulp.task 'dev', ['watchify'], ->
-        regeneratorSource = require('fs').readFileSync(__dirname + '/test/regenerator.min.js');
+        regeneratorSource = require('fs').readFileSync(__dirname + '/dist/regenerator.min.js')
         app.middleware.unshift (next) ->*
             if @path.match(/\.js$/) and (filePath = yield firstExists(
                 getFilePath(@path),
@@ -53,7 +53,7 @@ module.exports = (gulp, app, listen) ->
             ))
                 @status = 200
                 @type = 'js'
-                @respond = false;
+                @respond = false
                 newB(filePath).bundle().pipe(@res)
             else
                 yield next
