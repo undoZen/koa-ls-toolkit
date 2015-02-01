@@ -14,9 +14,6 @@ watchify.args.prelude = 'BCP.prelude';
 function exists(filePath)
     new Promise(fs.exists(filePath, _))
 
-function sleep(ms)
-    new Promise(setTimeout(_, ms))
-
 function firstExists(...files)
     return co ->*
         while files.length

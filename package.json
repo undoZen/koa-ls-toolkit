@@ -6,6 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+      "dist/regenerator.min.js",
+      "dist/regenerator.js",
+      "gulp.js",
+      "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/undoZen/koa-ls-toolkit.git"
@@ -23,17 +29,17 @@
   },
   "homepage": "https://github.com/undoZen/koa-ls-toolkit",
   "peerDependencies": {
+    "LiveScript": "*",
     "bluebird": "*",
     "co": "*",
     "gulp": "*",
     "koa": "*"
   },
   "dependencies": {
-    "LiveScript": "^1.3.1",
-    "browserify": "^8.1.1",
+    "browserify": "^8.1.3",
     "liveify": "^2.0.0",
     "uglify-js": "^2.4.16",
-    "watchify": "^2.2.1"
+    "watchify": "^2.3.0"
   },
   "devDependencies": {
     "browserify-common-prelude": "^0.2.0",
