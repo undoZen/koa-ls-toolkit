@@ -3,7 +3,6 @@ require! path
 require! fs
 require! browserify
 require! watchify
-require! regenerator
 require! co
 Promise = require('bluebird')
 Transform = require('stream').Transform
