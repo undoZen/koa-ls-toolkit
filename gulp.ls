@@ -6,6 +6,8 @@ require! watchify
 require! co
 Promise = require('bluebird')
 Transform = require('stream').Transform
+source = require \vinyl-source-stream2
+rename = require \gulp-rename
 
 watchify.args.exposeAll = true
 watchify.args.prelude = 'BCP.prelude'
@@ -27,9 +29,10 @@ module.exports = (gulp, app, listen) ->
             return filePath
         return path.join(app.root, filePath)
 
-    function newB(reqPath)
-        b = browserify(getFilePath(reqPath), watchify.args)
-            .transform('liveify')
+    function newB(reqPath, min)
+        b = browserify(getFilePath(reqPath), watchify.args).transform(require('liveify'))
+        if min
+            b.transform {global: yes, sourcemap: no}, require('uglifyify')
 
         fr = new Transform do
             objectMode: true
@@ -44,8 +47,17 @@ module.exports = (gulp, app, listen) ->
     gulp.task 'watchify', ->
         watchify(browserify(watchify.args)).on 'update', console.log.bind(console)
 
+    gulp.task 'build', ->
+        s = source do
+            cwd: app.root
+            base: app.root
+            path: getFilePath('/client.js')
+        newB('/client.ls', yes).bundle()
+            .pipe(s)
+            .pipe(gulp.dest('./', base: app.root))
+
     gulp.task 'dev', ['watchify'], ->
-        regeneratorSource = require('fs').readFileSync(__dirname + '/dist/regenerator.min.js')
+        #regeneratorSource = require('fs').readFileSync(__dirname + '/dist/regenerator.min.js')
         app.middleware.unshift (next) ->*
             if @path.match(/\.js$/) and (filePath = yield firstExists(
                 getFilePath(@path),
