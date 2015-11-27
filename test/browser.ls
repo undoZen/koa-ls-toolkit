@@ -10,5 +10,6 @@ co ->*
     a = now!
     yield new Promise (resolve) ->
         setTimeout resolve, 1000
+    debugger
     console.log now! - a
     console.log 'world'
